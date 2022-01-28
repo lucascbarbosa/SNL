@@ -1,7 +1,0 @@
-clear all;
-close all;
-alpha = 1;
-s = tf('s');
-G = (1-alpha*s)/(1+alpha*s)^2;
-plotG_Gm(G);
-saveas(gcf,'imgs/G_Gm26.png');
