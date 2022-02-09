@@ -20,7 +20,7 @@ bp = 1;
 alpha = 1;
 beta = 1;
 
-out = sim('controle_adap',1.5*ref_pulse_T);
+out = sim('controle_adap',ref_pulse_T+2);
 
 %optimal k and theta
 k_opt = bm/bp;
@@ -34,7 +34,7 @@ hold on
 plot(out.ym)
 hold on
 plot(out.r)
-legend({'$y(t)$','$y_m(t)$','$r(t)$'},'Interpreter','latex')
+legend({'$y(t)$,$y_m(t)$,$r(t)$'},'Interpreter','latex')
 xlabel({'$t$'},'Interpreter','latex')
 saveas(gcf,'imgs/yymr.png');
 
