@@ -9,7 +9,7 @@ ref_sin_freq = 1/ref_pulse_T;
 switch_ref = 0;
 
 % reference plant
-am = 5;
+am = 2;
 bm = 1;
 
 % real plant
@@ -30,10 +30,23 @@ theta_opt = (am-ap)/bp;
 
 % Plots
 % y,ym and r
+figure;
 plot(out.y)
 hold on
 plot(out.ym)
 hold on
 plot(out.r)
-title({'$y(t),y_m(t),r(t)$'},'Interpreter','latex')
-xtitle({'$t$'},'Interpreter','latex')
+legend({'$y(t)$,$y_m(t)$,$r(t)$'},'Interpreter','latex')
+xlabel({'$t$'},'Interpreter','latex')
+saveas(gcf,'imgs/yymr.png');
+
+% k and theta
+figure;
+plot(out.K)
+hold on 
+plot(out.theta)
+yline(k_opt,'-','$K^*$','Interpreter','latex');
+yline(theta_opt,'-','$\theta^*$','Interpreter','latex');
+legend({'$K$','$\theta$'},'Interpreter','latex');
+xlabel({'$t$'},'Interpreter','latex');
+saveas(gcf,'imgs/ktheta.png');
