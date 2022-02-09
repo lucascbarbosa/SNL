@@ -9,7 +9,7 @@ ref_sin_freq = 1/ref_pulse_T;
 switch_ref = 0;
 
 % reference plant
-am = 2;
+am = 1;
 bm = 1;
 
 % real plant
