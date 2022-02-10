@@ -15,14 +15,14 @@ am = -1;
 bm = 1;
 
 % real plant
-ap = -1;
+ap = 2;
 bp = 1;
 
 % parameters
 alpha = 1;
 beta = 1;
 
-out = sim('controle_adap',4*ref_pulse_T);
+out = sim('controle_adap',8*ref_pulse_T);
 
 %optimal k and theta
 k_opt = bm/bp;
