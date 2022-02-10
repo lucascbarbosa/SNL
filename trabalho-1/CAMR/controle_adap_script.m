@@ -7,9 +7,11 @@ ref_pulse_T = 18;
 ref_sin_freq = 1/ref_pulse_T;
 
 switch_ref = 0;
+ref = ["pulse" "sine"];
+ref = ref(switch_ref+1);
 
 % reference plant
-am = 2;
+am = -1;
 bm = 1;
 
 % real plant
@@ -20,7 +22,7 @@ bp = 1;
 alpha = 1;
 beta = 1;
 
-out = sim('controle_adap',ref_pulse_T+2);
+out = sim('controle_adap',8*ref_pulse_T);
 
 %optimal k and theta
 k_opt = bm/bp;
@@ -34,10 +36,9 @@ hold on
 plot(out.ym)
 hold on
 plot(out.r)
-legend({'$y(t)$,$y_m(t)$,$r(t)$'},'Interpreter','latex')
+legend({'$y(t)$','$y_m(t)$','$r(t)$'},'Interpreter','latex')
 xlabel({'$t$'},'Interpreter','latex')
-saveas(gcf,'imgs/yymr.png');
-
+saveas(gcf,"imgs/yymr_"+ref+".png");
 % k and theta
 figure;
 plot(out.K)
@@ -47,4 +48,4 @@ yline(k_opt,'-','$K^*$','Interpreter','latex');
 yline(theta_opt,'-','$\theta^*$','Interpreter','latex');
 legend({'$K$','$\theta$'},'Interpreter','latex');
 xlabel({'$t$'},'Interpreter','latex');
-saveas(gcf,'imgs/ktheta.png');
+saveas(gcf,"imgs/ktheta_"+ref+".png");
