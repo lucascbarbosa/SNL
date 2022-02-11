@@ -25,9 +25,11 @@ Kp_relay = 0.6*K_critr_relay;
 Ti_relay = T_estr_relay/2;
 Td_relay = T_estr_relay/8;
 
-out = sim('PID_auto2.slx',30);
+%% auto-adjusting
 
-%Plots
+out = sim('PID_auto.slx',30);
+
+%% plots
 figure;
 plot(out.y_PID);
 xlabel({'$t$'},'Interpreter','latex');
