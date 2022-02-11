@@ -25,9 +25,9 @@ Kp_relay = 0.6*K_critr_relay;
 Ti_relay = T_estr_relay/2;
 Td_relay = T_estr_relay/8;
 
-%% auto-adjusting
+%% autotuning
 
-out = sim('PID_auto.slx',30);
+out = sim('PID_auto.slx',40);
 
 %% plots
 figure;
@@ -43,3 +43,13 @@ xlabel({'$t$'},'Interpreter','latex');
 ylabel('y');
 title("Resposta para controle por relay");
 yline(R,'label','Reference')
+
+figure;
+plot(out.y_PID_auto);
+hold on;
+plot(out.D_auto);
+xlabel({'$t$'},'Interpreter','latex');
+ylabel('y');
+title("Resposta para controle por PID autoajustável com distúrbio");
+yline(R);
+legend({'$y_{auto}$','$D_{auto}$','Rerence'},'Interpreter','latex');
