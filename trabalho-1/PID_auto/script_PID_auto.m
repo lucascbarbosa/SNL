@@ -1,39 +1,43 @@
-close all
-clear
+close all;
+clear all;
 
 %% Variables
 s=tf('s');
-G=6*exp(-s)/((s+1)*(s+2)*(s+3));
-
+G=exp(-s)*zpk([],[-1 -2 -3],6);
+R = 1; %reference
 %% K prop
-k_estr=2.1; %val achado no simulink
-T_estr=4.9; %sec
+K_est =2.11; %rlocus
+T_estr=4.92; %secs
 %% PID
-Kp=0.6*k_estr;
+Kp=0.6*K_est;
 Ti=T_estr/2;
+Fi = 1/Ti;
 Td=T_estr/8;
+
 %% relé
 M=5;
 
-%% switch
-A=6.3/2;
-T_estr=4.9;
-K_estr=4*M/(pi*A);
-Kp_s=0.6*k_estr;
-Ti_s=T_estr/2;
-Td_s=T_estr/8;
+%% relay
+A = 6.2/2;
+T_estr_s = 4.4;
+K_estr_s = 4*M/(pi*A);
+Kp_s = 0.6*K_estr_s;
+Ti_s = T_estr_s/2;
+Td_s = T_estr_s/8;
 
+out = sim('PID_auto2.slx',30);
 
+%Plots
+figure;
+plot(out.y_PID);
+xlabel({'$t$'},'Interpreter','latex');
+ylabel('y');
+title("Resposta para $K_p^*$",'Interpreter','latex');
+yline(R,'label','Reference')
 
-
-% for i =1:0.1:2.2
-%     k=i;
-%     out = sim('PID_simulink.slx',100);
-%     if abs(out.y.signals.values(end))<3
-%         converg=abs(out.y.signals.values(end)-out.y.signals.values(end-2));
-%         if converg>0.01
-%             k_estr=k;
-%             Break
-%         end
-%     end
-% end
+figure;
+plot(out.y_relay);
+xlabel({'$t$'},'Interpreter','latex');
+ylabel('y');
+title("Resposta para controle por relay");
+yline(R,'label','Reference')
