@@ -6,7 +6,7 @@ ref_pulse_T = 18;
 
 ref_sin_freq = 1/ref_pulse_T;
 
-switch_ref = 0;
+switch_ref = 1;
 ref = ["pulse" "sine"];
 ref = ref(switch_ref+1);
 
@@ -17,6 +17,7 @@ bm = 1;
 % real plant
 ap = 1;
 bp = 1;
+b = 10;
 
 % parameters
 alpha = 1;
@@ -29,6 +30,7 @@ k_opt = bm/bp;
 theta_opt = (am-ap)/bp;
 
 % Plots
+
 % y,ym and r
 figure;
 plot(out.y)
@@ -49,3 +51,4 @@ yline(theta_opt,'-','$\theta^*$','Interpreter','latex');
 legend({'$K$','$\theta$'},'Interpreter','latex');
 xlabel({'$t$'},'Interpreter','latex');
 saveas(gcf,"imgs/ktheta_"+ref+".png");
+
