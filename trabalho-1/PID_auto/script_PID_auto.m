@@ -6,10 +6,10 @@ s=tf('s');
 G=exp(-s)*zpk([],[-1 -2 -3],6);
 R = 1; %reference
 %% K prop
-K_est =2.11; %rlocus
+K_crit =2.11; %rlocus
 T_estr=4.92; %secs
 %% PID
-Kp=0.6*K_est;
+Kp=0.6*K_crit;
 Ti=T_estr/2;
 Fi = 1/Ti;
 Td=T_estr/8;
@@ -19,11 +19,11 @@ M=5;
 
 %% relay
 A = 6.2/2;
-T_estr_s = 4.4;
-K_estr_s = 4*M/(pi*A);
-Kp_s = 0.6*K_estr_s;
-Ti_s = T_estr_s/2;
-Td_s = T_estr_s/8;
+T_estr_relay = 4.4;
+K_critr_relay = 4*M/(pi*A);
+Kp_relay = 0.6*K_critr_relay;
+Ti_relay = T_estr_relay/2;
+Td_relay = T_estr_relay/8;
 
 out = sim('PID_auto2.slx',30);
 
