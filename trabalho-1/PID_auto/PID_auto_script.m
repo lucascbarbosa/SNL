@@ -15,7 +15,7 @@ Fi = 1/Ti;
 Td=T_estr/8;
 
 %% relé
-M=5;
+M=3;
 
 %% relay
 A = 6.2/2;
@@ -27,6 +27,7 @@ Td_relay = T_estr_relay/8;
 
 %% autotuning
 
+t_switch = 15;
 out = sim('PID_auto.slx',40);
 
 %% plots
@@ -36,6 +37,7 @@ xlabel({'$t$'},'Interpreter','latex');
 ylabel('y');
 title("Resposta para $K_p^*$",'Interpreter','latex');
 yline(R,'label','Reference')
+saveas(gcf,'imgs/resp_critico.png');
 
 figure;
 plot(out.y_relay);
@@ -43,9 +45,19 @@ xlabel({'$t$'},'Interpreter','latex');
 ylabel('y');
 title("Resposta para controle por relay");
 yline(R,'label','Reference')
+saveas(gcf,'imgs/resp_relay.png');
 
 figure;
 plot(out.y_PID_auto);
+xlabel({'$t$'},'Interpreter','latex');
+ylabel('y');
+title("Resposta para controle por PID autoajustável");
+yline(R);
+legend({'$y_{auto}$','Rerence'},'Interpreter','latex');
+saveas(gcf,'imgs/resp_auto.png');
+
+figure;
+plot(out.y_PID_auto_D);
 hold on;
 plot(out.D_auto);
 xlabel({'$t$'},'Interpreter','latex');
@@ -53,3 +65,4 @@ ylabel('y');
 title("Resposta para controle por PID autoajustável com distúrbio");
 yline(R);
 legend({'$y_{auto}$','$D_{auto}$','Rerence'},'Interpreter','latex');
+saveas(gcf,'imgs/resp_auto_D.png');
